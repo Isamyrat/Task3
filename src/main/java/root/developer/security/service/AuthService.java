@@ -17,7 +17,7 @@ public class AuthService {
 
     public JwtResponse login(@NonNull JwtRequest authRequest) {
 
-            final String accessToken = jwtProvider.generateAccessToken(authRequest);
-            return new JwtResponse(accessToken);
+        final String accessToken = jwtProvider.generateAccessToken(authRequest);
+        return new JwtResponse(accessToken);
     }
 }

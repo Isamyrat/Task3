@@ -1,10 +1,16 @@
 package root.developer.security.jwt;
 
-import io.jsonwebtoken.*;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.ExpiredJwtException;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.MalformedJwtException;
+import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.SignatureException;
+import io.jsonwebtoken.UnsupportedJwtException;
 import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.env.Environment;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import root.developer.security.model.JwtRequest;
 
@@ -16,11 +22,10 @@ import java.util.Date;
 
 @Slf4j
 @Component
+@RequiredArgsConstructor
 public class JwtProvider {
 
-
-    @Autowired
-    private Environment env;
+    private final Environment env;
 
 
     public String generateAccessToken(@NonNull JwtRequest jwtRequest) {
@@ -30,12 +35,12 @@ public class JwtProvider {
         log.info("{}", env.getProperty("SECRET_KEY"));
 
         return Jwts.builder()
-                    .setSubject("task2")
-                    .setExpiration(accessExpiration)
-                    .signWith(SignatureAlgorithm.HS512, env.getProperty("SECRET_KEY"))
-                    .claim("roles", jwtRequest.getRoles())
-                    .setIssuer(jwtRequest.getIssuer())
-                    .compact();
+            .setSubject("task2")
+            .setExpiration(accessExpiration)
+            .signWith(SignatureAlgorithm.HS512, env.getProperty("SECRET_KEY"))
+            .claim("roles", jwtRequest.getRoles())
+            .setIssuer(jwtRequest.getIssuer())
+            .compact();
     }
 
 

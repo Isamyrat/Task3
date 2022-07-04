@@ -2,7 +2,6 @@ package root.developer.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import root.developer.controller.Validation;
 import root.developer.exception.DeveloperNotFoundException;
@@ -16,7 +15,7 @@ import java.util.regex.Pattern;
 
 @Slf4j
 @Service
-@RequiredArgsConstructor(onConstructor = @__(@Autowired))
+@RequiredArgsConstructor
 public class DeveloperService {
 
     private final DeveloperRepository developerRepository;
@@ -45,9 +44,7 @@ public class DeveloperService {
 
     public Boolean checkUserName(String username) {
         if( username.length() > 2 && username.length() < 50){
-            if (Pattern.matches("^[A-Za-z]", String.valueOf(username.charAt(0)))) {
-                return true;
-            }
+            return Pattern.matches("^[A-Za-z]", String.valueOf(username.charAt(0)));
         }
         return false;
     }

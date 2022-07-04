@@ -17,10 +17,10 @@ import root.developer.security.jwt.JwtFilter;
 @RequiredArgsConstructor
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter{
+
     private final JwtFilter jwtFilter;
 
-    @Autowired
-    private AuthEntryPointJwt unauthorizedHandler;
+    private final AuthEntryPointJwt unauthorizedHandler;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
